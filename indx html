@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Coleta de Informações</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen py-10">
+    <div class="bg-white rounded-lg shadow-md p-8 w-full max-w-md">
+        <h1 class="text-2xl font-semibold text-blue-600 mb-6 text-center">Formulário de Coleta de Informações</h1>
+        <form method="POST" action="#" class="space-y-6">
+            <div>
+                <label for="nome" class="block text-gray-700 text-sm font-bold mb-2">Nome Completo:</label>
+                <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <p id="nome-error" class="text-red-500 text-xs italic" style="display: none;"></p>
+            </div>
+            <div>
+                <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Digite seu email" required class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <p id="email-error" class="text-red-500 text-xs italic" style="display: none;"></p>
+            </div>
+            <div>
+                <label for="telefone" class="block text-gray-700 text-sm font-bold mb-2">Telefone:</label>
+                <input type="tel" id="telefone" name="telefone" placeholder="Digite seu telefone" required class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <p id="telefone-error" class="text-red-500 text-xs italic" style="display: none;"></p>
+            </div>
+            <div>
+                <label for="mensagem" class="block text-gray-700 text-sm font-bold mb-2">Mensagem:</label>
+                <textarea id="mensagem" name="mensagem" placeholder="Digite sua mensagem" rows="4" required class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+                <p id="mensagem-error" class="text-red-500 text-xs italic" style="display: none;"></p>
+            </div>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full">Enviar Mensagem</button>
+        </form>
+    </div>
+
+    <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            let hasErrors = false;
+
+            const nomeInput = document.getElementById('nome');
+            const nomeError = document.getElementById('nome-error');
+            if (!nomeInput.value.trim()) {
+                nomeError.textContent = "Por favor, preencha o seu nome.";
+                nomeError.style.display = "block";
+                hasErrors = true;
+            } else {
+                nomeError.style.display = "none";
+            }
+
+            const emailInput = document.getElementById('email');
+            const emailError = document.getElementById('email-error');
+            const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+            if (!emailInput.value.trim()) {
+                emailError.textContent = "Por favor, preencha o seu email.";
+                emailError.style.display = "block";
+                hasErrors = true;
+            } else if (!emailRegex.test(emailInput.value)) {
+                emailError.textContent = "Por favor, insira um email válido.";
+                emailError.style.display = "block";
+                hasErrors = true;
+            } else {
+                emailError.style.display = "none";
+            }
+
+            const telefoneInput = document.getElementById('telefone');
+            const telefoneError = document.getElementById('telefone-error');
+            const telefoneRegex = /^\d{10,11}$/; // Valida números com 10 ou 11 dígitos
+            if (!telefoneInput.value.trim()) {
+                telefoneError.textContent = "Por favor, preencha o seu telefone.";
+                telefoneError.style.display = "block";
+                hasErrors = true;
+            } else if (!telefoneRegex.test(telefoneInput.value)) {
+                telefoneError.textContent = "Por favor, insira um telefone válido (apenas números, 10-11 dígitos).";
+                telefoneError.style.display = "block";
+                hasErrors = true;
+            } else {
+                telefoneError.style.display = "none";
+            }
+
+            const mensagemInput = document.getElementById('mensagem');
+            const mensagemError = document.getElementById('mensagem-error');
+            if (!mensagemInput.value.trim()) {
+                mensagemError.textContent = "Por favor, preencha a sua mensagem.";
+                mensagemError.style.display = "block";
+                hasErrors = true;
+            } else {
+                mensagemError.style.display = "none";
+            }
+
+            if (hasErrors) {
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
